@@ -3,6 +3,11 @@ set(PROTOBUF_GENERATE_CPP_APPEND_PATH OFF)
 find_package(Protobuf REQUIRED)
 
 # Find gRPC
+find_package(gRPC QUIET)
+if (NOT gRPC_FOUND)
+    # Fallback to custom gRPC find (due to Ubuntu 20.04)
+    list (APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/third-party")
+endif()
 find_package(gRPC REQUIRED)
 
 # Create library
