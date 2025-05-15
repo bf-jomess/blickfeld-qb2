@@ -12,8 +12,8 @@ int main() {
         grpc::ClientContext                                            context;
         blickfeld::core_processing::services::PointCloudStreamResponse response;
         auto stream = service->Stream(&context, blickfeld::core_processing::services::PointCloudStreamRequest());
-        
-        if (!stream->Read(&response)) {
+
+        if(!stream->Read(&response)) {
             auto status = stream->Finish();
             std::cerr << "Stream read failed: " << status.error_message() << std::endl;
             return 1;
@@ -42,13 +42,12 @@ void process_frame(const blickfeld::core_processing::data::Frame& frame) {
     auto direction_ids = (uint32_t*) frame.binary().direction_id().data();
 
     // read out x,y,z coordinates, photon count, direction_id of a point in the frame
-    int pointIndex = 10;
-    float x = xyz[pointIndex+0];
-    float y = xyz[pointIndex+1];
-    float z = xyz[pointIndex+2];
+    int      pointIndex   = 10;
+    float    x            = xyz[pointIndex + 0];
+    float    y            = xyz[pointIndex + 1];
+    float    z            = xyz[pointIndex + 2];
     uint16_t photon_count = photon_counts[pointIndex];
-    uint32_t direction_id =  direction_ids[pointIndex];
+    uint32_t direction_id = direction_ids[pointIndex];
 
-    printf("point: %d, x: %.3f m, y: %.3f m, z: %.3f m, photon count: %u, direction_id: %u\n",
-           pointIndex, x, y, z, photon_count, direction_id);
+    printf("point: %d, x: %.3f m, y: %.3f m, z: %.3f m, photon count: %u, direction_id: %u\n", pointIndex, x, y, z, photon_count, direction_id);
 }
