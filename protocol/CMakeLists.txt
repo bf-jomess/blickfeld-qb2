@@ -1,9 +1,9 @@
 # Find Protobuf
 set(PROTOBUF_GENERATE_CPP_APPEND_PATH OFF)
-find_package(Protobuf CONFIG REQUIRED)
+find_package(Protobuf REQUIRED)
 
 # Find gRPC
-find_package(gRPC CONFIG REQUIRED)
+find_package(gRPC REQUIRED)
 
 # Create library
 file(GLOB_RECURSE PROTO_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.proto)
