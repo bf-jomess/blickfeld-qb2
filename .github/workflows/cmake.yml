@@ -10,12 +10,14 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: lukka/get-cmake@latest
     - uses: ilammy/msvc-dev-cmd@v1.4.1
+    - uses: lukka/run-vcpkg@v11
     - name: compile
       run: | 
         mkdir build
         cd build
-        cmake -DCMAKE_TOOLCHAIN_FILE=%VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake -A x64 -DBUILD_SHARED_LIBS=OFF ..
+        cmake -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -A x64 -DBUILD_SHARED_LIBS=OFF ..
         cmake --build . -j
 
   build-linux:
