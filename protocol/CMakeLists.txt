@@ -1,6 +1,12 @@
 # Find Protobuf
 set(PROTOBUF_GENERATE_CPP_APPEND_PATH OFF)
 find_package(Protobuf REQUIRED)
+if(Protobuf_VERSION VERSION_LESS "3.12.4")
+    # Fallback to older Protobuf version (due to Ubuntu 20.04)
+    find_package(Protobuf 3.6.1 REQUIRED)
+    # Override 'protobuf_generate' with more recent version as 'PLUGIN' keyword is not yet supported
+    include("${PROJECT_SOURCE_DIR}/cmake/third-party/protobuf_generate.cmake")
+endif()
 
 # Find gRPC
 find_package(gRPC QUIET)
